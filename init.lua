@@ -538,6 +538,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        csharp_ls = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -868,6 +869,7 @@ vim.opt.splitright = true
 vim.opt.scrolloff = 999
 
 vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>e', ':Ex<CR>', { noremap = true })
 
 -- local harpoon = require("harpoon")
 -- harpoon:setup({})
