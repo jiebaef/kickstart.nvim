@@ -861,7 +861,11 @@ require('lazy').setup({
 })
 
 -- [[ MY SETTINGS ]]
+
+vim.opt.conceallevel = 1
+
 vim.opt.relativenumber = true
+vim.opt.clipboard = "unnamedplus"
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
