@@ -108,8 +108,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  See `:help lua-guide-autocommands`
 
 -- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  Try it with `yap` in normal mode See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -128,15 +127,9 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
+--  To check the current status of your plugins, run `:Lazy`
 --  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
+--  To update plugins you can run `:Lazy update`
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   { import = 'custom.plugins' },
@@ -176,39 +169,6 @@ vim.opt.scrolloff = 999
 
 vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>e', ':Ex<CR>', { noremap = true })
-
--- local harpoon = require("harpoon")
--- harpoon:setup({})
--- vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
--- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
---
--- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
--- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
--- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
--- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
---
--- -- Toggle previous & next buffers stored within Harpoon list
--- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
--- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
---
--- local conf = require("telescope.config").values
--- local function toggle_telescope(harpoon_files)
---     local file_paths = {}
---     for _, item in ipairs(harpoon_files.items) do
---         table.insert(file_paths, item.value)
---     end
---
---     require("telescope.pickers").new({}, {
---         prompt_title = "Harpoon",
---         finder = require("telescope.finders").new_table({
---             results = file_paths,
---         }),
---         previewer = conf.file_previewer({}),
---         sorter = conf.generic_sorter({}),
---     }):find()
--- end
---
--- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
 -- [[ END MY SETTINGS ]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
