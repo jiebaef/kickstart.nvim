@@ -160,7 +160,7 @@ require('lazy').setup({
 vim.opt.conceallevel = 1
 
 vim.opt.relativenumber = true
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -169,6 +169,21 @@ vim.opt.scrolloff = 999
 
 vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>e', ':Ex<CR>', { noremap = true })
+
+local ignored_netrw_list = {
+  '\\.acn',
+  '\\.acr',
+  '\\.alg',
+  '\\.glg',
+  '\\.glo',
+  '\\.gls',
+  '\\.ist',
+  '\\.maf',
+  '\\.mtc',
+  '\\.mtc0',
+  'node_modules',
+}
+vim.g.netrw_list_hide = table.concat(ignored_netrw_list, ',')
 -- [[ END MY SETTINGS ]]
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
