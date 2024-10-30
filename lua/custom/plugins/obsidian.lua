@@ -14,10 +14,7 @@ if hostname == 'framework-arch-finn' then
       'BufNewFile " .. vim.fn.expand "~" .. "/Projects/Vaults/FHDW/**.md',
     },
     dependencies = {
-      -- Required.
       'nvim-lua/plenary.nvim',
-
-      -- see below for full list of optional dependencies 👇
     },
     opts = {
       workspaces = {
@@ -44,7 +41,20 @@ if hostname == 'framework-arch-finn' then
         -- A map for custom variables, the key should be the variable and the value a function
         -- substitutions = {},
       },
-      -- see below for full list of options 👇
+      mappings = {
+        ['gf'] = {
+          action = function()
+            return require('obsidian').util.gf_passthrough()
+          end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+        ['gd'] = {
+          action = function()
+            return require('obsidian').util.gf_passthrough()
+          end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+      },
     },
   }
 end
