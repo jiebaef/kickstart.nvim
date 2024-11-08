@@ -439,7 +439,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'svelte', 'css' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -555,22 +555,46 @@ local on_attach = function(_, bufnr)
 end
 
 -- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
+-- require('which-key').register {
+--   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+--   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+--   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+--   ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+--   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+--   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+--   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+--   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+-- }
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
-require('which-key').register({
-  ['<leader>'] = { name = 'VISUAL <leader>' },
-  ['<leader>h'] = { 'Git [H]unk' },
-}, { mode = 'v' })
+-- require('which-key').register({
+--   ['<leader>'] = { name = 'VISUAL <leader>' },
+--   ['<leader>h'] = { 'Git [H]unk' },
+-- }, { mode = 'v' })
+
+require('which-key').add {
+  { '<leader>c',  group = '[C]ode' },
+  { '<leader>c_', hidden = true },
+  { '<leader>d',  group = '[D]ocument' },
+  { '<leader>d_', hidden = true },
+  { '<leader>g',  group = '[G]it' },
+  { '<leader>g_', hidden = true },
+  { '<leader>h',  group = 'Git [H]unk' },
+  { '<leader>h_', hidden = true },
+  { '<leader>r',  group = '[R]ename' },
+  { '<leader>r_', hidden = true },
+  { '<leader>s',  group = '[S]earch' },
+  { '<leader>s_', hidden = true },
+  { '<leader>t',  group = '[T]oggle' },
+  { '<leader>t_', hidden = true },
+  { '<leader>w',  group = '[W]orkspace' },
+  { '<leader>w_', hidden = true },
+}
+
+require('which-key').add {
+  { '<leader>',  group = 'VISUAL <leader>', mode = 'v' },
+  { '<leader>h', desc = 'Git [H]unk',       mode = 'v' },
+}
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
@@ -586,13 +610,25 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
+  cssls = {},
+  cssmodules_ls = {},
   -- clangd = {},
+  emmet_language_server = {
+    filetypes = {
+      "css",
+      "html",
+      "javascriptreact",
+      "less",
+      "sass",
+      "scss",
+      "svelte",
+      "typescriptreact"
+    },
+  },
+  dockerls = {},
+  docker_compose_language_service = {},
   -- gopls = {},
-  -- pyright = {},
-  rust_analyzer = {},
-  -- tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -602,6 +638,46 @@ local servers = {
     },
   },
   powershell_es = {},
+  -- pyright = {},
+  rust_analyzer = {},
+  ts_ls = {
+    init_options = {
+      plugins = {
+        {
+          name = '@vue/typescript-plugin',
+          -- location = "P:/Scoop/apps/nvm/1.1.12/nodejs/nodejs/node_modules/@vue/typescript-plugin",
+          location = 'P:/Scoop/apps/nvm/current/nodejs/v22.1.0/node_modules/@vue/typescript-plugin',
+          -- location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+          languages = { 'javascript', 'typescript', 'vue' },
+        },
+      },
+    },
+    filetypes = {
+      'javascript',
+      'typescript',
+      'vue',
+    },
+  },
+  svelte = {
+    cmd = { 'svelteserver', '--stdio' },
+    settings = {
+      typescript = {
+        inlayHints = {
+          parameterNames = { enabled = 'all' },
+          parameterTypes = { enabled = false },
+          variableTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          functionLikeReturnTypes = { enabled = false },
+          enumMemberValues = { enabled = true },
+        },
+      },
+    },
+    filetypes = { 'svelte' },
+    root_dir = {
+      'package.json',
+      '.git',
+    },
+  },
 }
 
 -- Setup neovim lua configuration
@@ -689,40 +765,18 @@ vim.opt.splitright = true
 
 vim.opt.scrolloff = 999
 
-vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
+vim.g.vim_svelte_plugin_use_typescript = 1
 
--- local harpoon = require("harpoon")
--- harpoon:setup({})
--- vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
--- -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
--- 
--- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
--- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
--- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
--- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
--- 
--- -- Toggle previous & next buffers stored within Harpoon list
--- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
--- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
--- 
--- local conf = require("telescope.config").values
--- local function toggle_telescope(harpoon_files)
---     local file_paths = {}
---     for _, item in ipairs(harpoon_files.items) do
---         table.insert(file_paths, item.value)
---     end
--- 
---     require("telescope.pickers").new({}, {
---         prompt_title = "Harpoon",
---         finder = require("telescope.finders").new_table({
---             results = file_paths,
---         }),
---         previewer = conf.file_previewer({}),
---         sorter = conf.generic_sorter({}),
---     }):find()
--- end
--- 
--- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
+vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>e', ':Ex<CR>', { noremap = true, silent = true })
+
+if vim.fn.has('macunix') == 0
+then
+  print("WINDOWS")
+else
+  print("MACUNIX")
+end
+
 -- [[ END MY SETTINGS ]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
