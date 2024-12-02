@@ -1,6 +1,4 @@
-local hostname = vim.loop.os_gethostname()
-
-if hostname == 'framework-arch-finn' then
+if require('misc.helpers').isFramework() then
   return {
     'epwalsh/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
@@ -53,6 +51,12 @@ if hostname == 'framework-arch-finn' then
             return require('obsidian').util.gf_passthrough()
           end,
           opts = { noremap = false, expr = true, buffer = true },
+        },
+        ['gt'] = {
+          action = function()
+            return require('obsidian').get_client().today()
+          end,
+          opts = { noremap = false, expr = true, buffer = false },
         },
       },
     },
