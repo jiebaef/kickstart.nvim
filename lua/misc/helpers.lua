@@ -12,4 +12,18 @@ M.isLinux = function()
   return false
 end
 
+M.ignored_netrw_list = {
+  '\\.acn',
+  '\\.acr',
+  '\\.alg',
+  '\\.glg',
+  '\\.glo',
+  '\\.gls',
+  '\\.ist',
+  '\\.maf',
+  '\\.mtc',
+  '\\.mtc0',
+  'node_modules',
+}
+
 return M
