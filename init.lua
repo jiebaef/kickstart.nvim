@@ -43,25 +43,21 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>qe', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>qq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
 require 'custom.config.autocommands'
 
 require 'custom.config.lazy'
 
-local helpers = require 'misc.helpers'
-
 -- [[ MY SETTINGS ]]
+local helpers = require 'misc.helpers'
 
 vim.opt.conceallevel = 1
 
 vim.opt.cursorline = true
 vim.opt.scrolloff = 999
 
-vim.keymap.set('n', '<leader>w', ':up<CR>', { noremap = true })
-vim.keymap.set('n', '<leader>e', ':Ex<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>w', '<cmd>up<CR>', { desc = 'Updates (saves) file', noremap = true })
+vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>', { desc = 'Opens NETRW', noremap = true })
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source<Cr>', { desc = 'Sources the current file', noremap = true })
 
 vim.g.netrw_list_hide = table.concat(helpers.ignored_netrw_list, ',')
 
