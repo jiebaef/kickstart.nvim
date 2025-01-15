@@ -6,7 +6,7 @@ M.isFramework = function()
 end
 
 M.isLinux = function()
-  if vim.fn.has 'macunix' then
+  if vim.fn.has 'macunix' == 1 then
     return true
   end
   return false

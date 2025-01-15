@@ -61,7 +61,7 @@ vim.keymap.set('n', '<leader><leader>x', '<cmd>source<Cr>', { desc = 'Sources th
 
 vim.g.netrw_list_hide = table.concat(helpers.ignored_netrw_list, ',')
 
-print(helpers.isLinux())
+-- print(helpers.isLinux())
 
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
