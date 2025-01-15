@@ -777,6 +777,8 @@ else
   print("MACUNIX")
 end
 
+vim.keymap.set('n', '<leader>p', ':! py src/main.py<CR>', { noremap = true, silent = true })
+
 -- [[ END MY SETTINGS ]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
