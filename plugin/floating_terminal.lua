@@ -49,4 +49,17 @@ local toggle_terminal = function()
   end
 end
 
+local nixbuild_toggle_terminal = function()
+  if not vim.api.nvim_win_is_valid(state.floating.win) then
+    state.floating = create_floating_window { buf = state.floating.buf }
+    if vim.bo[state.floating.buf].buftype ~= 'terminal' then
+      vim.cmd.terminal()
+      vim.api.nvim_chan_send(vim.bo.channel, './scripts/build.sh\r')
+    end
+  else
+    vim.api.nvim_win_hide(state.floating.win)
+  end
+end
+
 vim.api.nvim_create_user_command('Floaterminal', toggle_terminal, {})
+vim.api.nvim_create_user_command('NixBuild', nixbuild_toggle_terminal, {})
