@@ -1,4 +1,4 @@
-return {
+return {} --[[ {
 
   -- for lsp features in code cells / embedded code
   'jmbuhr/otter.nvim',
@@ -23,3 +23,4 @@ return {
     handle_leading_whitespace = true,
   },
 }
+]] --

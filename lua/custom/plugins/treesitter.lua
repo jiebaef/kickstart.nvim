@@ -2,7 +2,25 @@ return { -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
   opts = {
-    ensure_installed = { 'bash', 'c', 'cpp', 'css', 'go', 'html', 'javascript', 'lua', 'luadoc', 'markdown', 'python', 'rust', 'svelte', 'tsx', 'typescript', 'vimdoc', 'vim'  },
+    ensure_installed = {
+      'bash',
+      'c',
+      'cpp',
+      'css',
+      'go',
+      'html',
+      'javascript',
+      'lua',
+      'luadoc',
+      'markdown',
+      'python',
+      'rust',
+      'svelte',
+      'tsx',
+      'typescript',
+      'vimdoc',
+      'vim',
+    },
 
     -- Autoinstall languages that are not installed
     auto_install = true,
@@ -27,5 +45,12 @@ return { -- Highlight, edit, and navigate code
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+    -- if not require('misc.helpers').isLinux() then
+    --   local ts_install = require 'nvim-treesitter.install'
+    --   ts_install.command_extra_args = {
+    --     install = { '--binary', 'C:\\Users\\Finn\\.cargo\\bin\\tree-sitter.exe' },
+    --   }
+    -- end
   end,
 }

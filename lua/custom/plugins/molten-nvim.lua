@@ -1,4 +1,4 @@
-return {
+return {} --[[ {
   'benlubas/molten-nvim',
   enabled = false,
   build = ':UpdateRemotePlugins',
@@ -18,3 +18,4 @@ return {
     { '<leader>mr', ':MoltenReevaluateCell<cr>', desc = 'molten re-eval cell' },
   },
 }
+]] --

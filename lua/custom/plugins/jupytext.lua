@@ -1,4 +1,4 @@
-return { -- directly open ipynb files as quarto docuements
+return {} --[[{ -- directly open ipynb files as quarto docuements
   -- and convert back behind the scenes
   'GCBallesteros/jupytext.nvim',
   opts = {
@@ -16,3 +16,4 @@ return { -- directly open ipynb files as quarto docuements
     },
   },
 }
+]] --
