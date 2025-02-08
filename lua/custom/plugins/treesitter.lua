@@ -10,6 +10,7 @@ return { -- Highlight, edit, and navigate code
       'go',
       'html',
       'javascript',
+      'jsonc',
       'lua',
       'luadoc',
       'markdown',
