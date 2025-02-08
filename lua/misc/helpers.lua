@@ -13,7 +13,7 @@ M.isLinux = function()
 end
 
 M.isNas = function()
-  return M.isLinux() and vim.fn.hostname() == 'dockerhost'
+  return vim.fn.hostname() == 'dockerhost'
 end
 
 M.ignored_netrw_list = {
