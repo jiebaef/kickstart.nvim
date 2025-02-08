@@ -12,6 +12,10 @@ M.isLinux = function()
   return false
 end
 
+M.isNas = function()
+  return M.isLinux() and vim.fn.hostname() == 'dockerhost'
+end
+
 M.ignored_netrw_list = {
   '\\.acn',
   '\\.acr',

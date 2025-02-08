@@ -1,7 +1,12 @@
 local servers = {}
 local util = require 'lspconfig.util'
 
-if require('misc.helpers').isLinux() then
+if require('misc.helpers').isNas() then
+  servers = {
+    docker_compose_language_service = {},
+    dockerls = {},
+  }
+elseif require('misc.helpers').isLinux() then
   servers = {
     beautysh = {},
     csharp_ls = {},
