@@ -1,4 +1,5 @@
-if require('misc.helpers').isFramework() then
+local helpers = require 'misc.helpers'
+if helpers.hosts.isFramework() then
   return {
     'epwalsh/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit

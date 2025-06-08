@@ -1,148 +1,108 @@
-local servers = {}
 local util = require 'lspconfig.util'
+local helpers = require 'misc.helpers'
 
-if require('misc.helpers').isNas() then
-  servers = {
-    docker_compose_language_service = {},
-    dockerls = {},
-  }
-elseif require('misc.helpers').isLinux() then
-  servers = {
-    beautysh = {},
-    csharp_ls = {},
-    cssls = {},
-    cssmodules_ls = {},
-    djlint = {},
-    docker_compose_language_service = {},
-    dockerls = {},
-    emmet_language_server = {
-      filetypes = {
-        'css',
-        'html',
-        'javascriptreact',
-        'less',
-        'sass',
-        'scss',
-        'svelte',
-        'typescriptreact',
-      },
+-- shared servers
+local servers = {
+  beautysh = {},
+  black = {},
+  csharp_ls = {},
+  cssls = {},
+  cssmodules_ls = {},
+  djlint = {},
+  docker_compose_language_service = {},
+  dockerls = {},
+  emmet_language_server = {
+    filetypes = {
+      'css',
+      'html',
+      'javascriptreact',
+      'less',
+      'sass',
+      'scss',
+      'svelte',
+      'typescriptreact',
     },
-    html = { filetypes = { 'html', 'twig', 'hbs' } },
-    lua_ls = {
-      settings = {
-        Lua = {
-          completion = {
-            callSnippet = 'Replace',
-          },
+  },
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  isort = {},
+  -- 'jupytext',
+  lua_ls = {
+    settings = {
+      Lua = {
+        completion = {
+          callSnippet = 'Replace',
         },
       },
     },
-    nil_ls = {},
-    rust_analyzer = {},
-    ts_ls = {
-      init_options = {
-        plugins = {
-          {
-            name = '@vue/typescript-plugin',
-            -- location = "P:/Scoop/apps/nvm/1.1.12/nodejs/nodejs/node_modules/@vue/typescript-plugin",
-            -- location = 'P:/Scoop/apps/nvm/current/nodejs/v22.1.0/node_modules/@vue/typescript-plugin',
-            location = '/usr/local/lib/node_modules/@vue/typescript-plugin',
-            languages = { 'javascript', 'typescript', 'vue' },
-          },
+  },
+  rust_analyzer = {},
+  shfmt = {},
+  stylua = {},
+  svelte = {
+    cmd = { 'svelteserver', '--stdio' },
+    settings = {
+      typescript = {
+        inlayHints = {
+          parameterNames = { enabled = 'all' },
+          parameterTypes = { enabled = false },
+          variableTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          functionLikeReturnTypes = { enabled = false },
+          enumMemberValues = { enabled = true },
         },
       },
-      filetypes = {
-        'javascript',
-        'typescript',
-        'vue',
-      },
     },
-    svelte = {
-      cmd = { 'svelteserver', '--stdio' },
-      settings = {
-        typescript = {
-          inlayHints = {
-            parameterNames = { enabled = 'all' },
-            parameterTypes = { enabled = false },
-            variableTypes = { enabled = true },
-            propertyDeclarationTypes = { enabled = true },
-            functionLikeReturnTypes = { enabled = false },
-            enumMemberValues = { enabled = true },
-          },
+    filetypes = { 'svelte' },
+    root_dir = util.root_pattern('package.json', '.git'),
+  },
+  ts_ls = {
+    init_options = {
+      plugins = {
+        {
+          name = '@vue/typescript-plugin',
+          location = '',
+          languages = { 'javascript', 'typescript', 'vue' },
         },
       },
-      filetypes = { 'svelte' },
-      root_dir = util.root_pattern('package.json', '.git'),
     },
-  }
+    filetypes = {
+      'javascript',
+      'typescript',
+      'vue',
+    },
+  },
+}
+
+local extensions = {}
+
+if helpers.isLinux() then
+  if helpers.hosts.isNas() then
+    servers = {
+      docker_compose_language_service = {},
+      dockerls = {},
+      shfmt = {},
+    }
+  elseif helpers.hosts.isNixos() then
+    extensions = {
+      nil_ls = {},
+    }
+
+    -- TODO: find out where vue typescript is installed
+    -- servers.ts_ls.init_options.plugins[1].location = '/usr/local/lib/node_modules/@vue/typescript-plugin'
+  elseif helpers.hosts.isFramework() then
+    -- extensions = {}
+    servers.ts_ls.init_options.plugins[1].location = '/usr/local/lib/node_modules/@vue/typescript-plugin'
+  end
 else
-  servers = {
-    beautysh = {},
-    csharp_ls = {},
-    cssls = {},
-    cssmodules_ls = {},
-    djlint = {},
-    docker_compose_language_service = {},
-    dockerls = {},
-    emmet_language_server = {
-      filetypes = {
-        'css',
-        'html',
-        'javascriptreact',
-        'less',
-        'sass',
-        'scss',
-        'svelte',
-        'typescriptreact',
-      },
-    },
-    html = { filetypes = { 'html', 'twig', 'hbs' } },
-    lua_ls = {
-      settings = {
-        Lua = {
-          completion = {
-            callSnippet = 'Replace',
-          },
-        },
-      },
-    },
-    powershell_es = {},
-    rust_analyzer = {},
-    ts_ls = {
-      init_options = {
-        plugins = {
-          {
-            name = '@vue/typescript-plugin',
-            -- location = "P:/Scoop/apps/nvm/1.1.12/nodejs/nodejs/node_modules/@vue/typescript-plugin",
-            location = 'P:/Scoop/apps/nvm/current/nodejs/v22.1.0/node_modules/@vue/typescript-plugin',
-            languages = { 'javascript', 'typescript', 'vue' },
-          },
-        },
-      },
-      filetypes = {
-        'javascript',
-        'typescript',
-        'vue',
-      },
-    },
-    svelte = {
-      cmd = { 'svelteserver', '--stdio' },
-      settings = {
-        typescript = {
-          inlayHints = {
-            parameterNames = { enabled = 'all' },
-            parameterTypes = { enabled = false },
-            variableTypes = { enabled = true },
-            propertyDeclarationTypes = { enabled = true },
-            functionLikeReturnTypes = { enabled = false },
-            enumMemberValues = { enabled = true },
-          },
-        },
-      },
-      filetypes = { 'svelte' },
-      root_dir = util.root_pattern('package.json', '.git'),
-    },
-  }
+  if helpers.hosts.isWindowsMain() then
+    extensions = {
+      powershell_es = {},
+    }
+
+    servers.ts_ls.init_options.plugins[1].location = 'P:/Scoop/apps/nvm/current/nodejs/v22.1.0/node_modules/@vue/typescript-plugin'
+  end
 end
+
+vim.list_extend(servers, extensions)
 
 return servers

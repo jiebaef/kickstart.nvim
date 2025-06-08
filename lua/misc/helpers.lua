@@ -1,20 +1,28 @@
 local M = {}
 
-M.isFramework = function()
-  local hostname = vim.loop.os_gethostname()
-  return hostname == 'framework-arch-finn'
-end
-
 M.isLinux = function()
-  if vim.fn.has 'macunix' == 1 then
-    return true
-  end
-  return false
+  return vim.fn.has 'macunix' == 1
 end
 
-M.isNas = function()
-  return vim.fn.hostname() == 'dockerhost'
-end
+M.hosts = {
+  isFramework = function()
+    -- local hostname = vim.loop.os_gethostname()
+    -- return hostname == 'framework-arch-finn'
+    return vim.fn.hostname() == 'framework-arch-finn'
+  end,
+
+  isNas = function()
+    return vim.fn.hostname() == 'dockerhost'
+  end,
+
+  isNixos = function()
+    return vim.fn.hostname() == 'nixos'
+  end,
+
+  isWindowsMain = function()
+    return vim.fn.hostname() == 'DESKTOP-FINN'
+  end,
+}
 
 M.ignored_netrw_list = {
   '\\.acn',
