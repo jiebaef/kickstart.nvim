@@ -55,11 +55,13 @@ vim.opt.conceallevel = 1
 vim.opt.cursorline = true
 vim.opt.scrolloff = 999
 
+vim.g.netrw_list_hide = table.concat(helpers.ignored_netrw_list, ',')
+
 vim.keymap.set('n', '<leader>w', '<cmd>up<CR>', { desc = 'Updates (saves) file', noremap = true })
 vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>', { desc = 'Opens NETRW', noremap = true })
-vim.keymap.set('n', '<leader><leader>x', '<cmd>source<Cr>', { desc = 'Sources the current file', noremap = true })
-
-vim.g.netrw_list_hide = table.concat(helpers.ignored_netrw_list, ',')
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source<CR>', { desc = 'Sources the current file', noremap = true })
+vim.keymap.set('n', '<leader><leader>Gg', '<cmd>Git<CR>', { desc = 'Opens Git (vim-fugitive)', noremap = true })
+vim.keymap.set('n', '<leader><leader>Gd', '<cmd>Gdiffsplit<CR>', { desc = 'Opens Git diff split of current window', noremap = true })
 
 if helpers.isLinux() then
   vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
