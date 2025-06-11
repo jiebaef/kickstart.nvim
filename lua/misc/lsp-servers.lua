@@ -82,6 +82,7 @@ if helpers.isLinux() then
       dockerls = {},
       shfmt = {},
     }
+    print(servers)
   elseif helpers.hosts.isNixos() then
     extensions = {
       nil_ls = {},
