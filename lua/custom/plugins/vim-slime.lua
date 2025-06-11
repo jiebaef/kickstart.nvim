@@ -1,3 +1,8 @@
+local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
+
 return { -- send code from python/r/qmd documets to a terminal or REPL
   -- like ipython, R, bash
   'jpalardy/vim-slime',

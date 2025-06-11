@@ -1,4 +1,8 @@
 local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
+
 if helpers.hosts.isFramework() then
   return {
     'epwalsh/obsidian.nvim',

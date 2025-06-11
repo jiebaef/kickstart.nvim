@@ -1,3 +1,7 @@
+local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
 return {} --[[ { -- requires plugins in lua/plugins/treesitter.lua and lua/plugins/lsp.lua
   -- for complete functionality (language features)
   'quarto-dev/quarto-nvim',

@@ -1,3 +1,8 @@
+local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
+
 return {} --[[{ -- directly open ipynb files as quarto docuements
   -- and convert back behind the scenes
   'GCBallesteros/jupytext.nvim',

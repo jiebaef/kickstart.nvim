@@ -1,3 +1,8 @@
+local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
+
 return { -- paste an image from the clipboard or drag-and-drop
   'HakonHarnes/img-clip.nvim',
   event = 'BufEnter',

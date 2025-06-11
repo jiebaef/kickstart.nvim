@@ -1,3 +1,8 @@
+local helpers = require 'misc.helpers'
+if helpers.isLinux() and helpers.hosts.isNas() then
+  return {}
+end
+
 return {} --[[ {
 
   -- for lsp features in code cells / embedded code
