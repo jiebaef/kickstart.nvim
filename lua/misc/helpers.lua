@@ -4,6 +4,14 @@ M.isLinux = function()
   return vim.fn.has 'macunix' == 1
 end
 
+M.isWindows = function()
+  return vim.fn.has 'win32' == 1
+end
+
+M.isWSL = function()
+  return vim.fn.has 'wsl' == 1
+end
+
 M.hosts = {
   isFramework = function()
     -- local hostname = vim.loop.os_gethostname()

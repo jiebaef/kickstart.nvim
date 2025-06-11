@@ -74,6 +74,17 @@ else
   vim.keymap.set('n', '<C-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
   vim.keymap.set('n', '<C-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 end
+
+if helpers.isWindows() and not helpers.isWSL() then
+  vim.o.shell = vim.fn.executable 'pwsh' == 1 and 'pwsh' or 'powershell'
+  vim.o.shellcmdflag =
+    '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+  -- vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.o.shellredir = '-RedirectStandardOutput %s -NoNewWindow -Wait'
+  vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+  vim.o.shellquote = ''
+  vim.o.shellxquote = ''
+end
 -- [[ END MY SETTINGS ]]
 
 -- The line beneath this is called `modeline`. See `:help modeline`
