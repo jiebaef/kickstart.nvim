@@ -62,6 +62,7 @@ vim.keymap.set('n', '<leader>e', '<cmd>Ex<CR>', { desc = 'Opens NETRW', noremap 
 vim.keymap.set('n', '<leader><leader>x', '<cmd>source<CR>', { desc = 'Sources the current file', noremap = true })
 vim.keymap.set('n', '<leader><leader>Gg', '<cmd>Git<CR>', { desc = 'Opens Git (vim-fugitive)', noremap = true })
 vim.keymap.set('n', '<leader><leader>Gd', '<cmd>Gdiffsplit<CR>', { desc = 'Opens Git diff split of current window', noremap = true })
+vim.keymap.set('n', '<leader>qa', vim.lsp.buf.code_action, { desc = 'Opens code action window to e.g. add missing imports', noremap = true, silent = true })
 
 if helpers.isLinux() then
   vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
