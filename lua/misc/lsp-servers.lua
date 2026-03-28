@@ -35,6 +35,7 @@ local servers = {
       },
     },
   },
+  roslyn = {},
   rust_analyzer = {},
   shfmt = {},
   stylua = {},

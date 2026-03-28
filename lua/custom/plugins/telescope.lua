@@ -1,3 +1,23 @@
+local isWindows = require('misc.helpers').isWindows
+
+local file_ignore_patterns = {
+  'node_modules',
+  'node%_modules',
+  '.git',
+  '!.env*',
+  '!*/.env*',
+  'target/debug',
+}
+
+if isWindows() then
+  for _, v in ipairs(vim.deepcopy(file_ignore_patterns)) do
+    if v:find '/' then
+      table.insert(file_ignore_patterns, (v:gsub('/', '\\')))
+    end
+  end
+  -- print(vim.inspect(file_ignore_patterns))
+end
+
 return { -- Fuzzy Finder (files, lsp, etc)
   'nvim-telescope/telescope.nvim',
   event = 'VimEnter',
@@ -30,12 +50,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         },
       },
       defaults = {
-        file_ignore_patterns = {
-          'node_modules',
-          '.git',
-          '!.env*',
-          '!*/.env*',
-        },
+        file_ignore_patterns = file_ignore_patterns,
       },
       extensions = {
         ['ui-select'] = {
